@@ -1,3 +1,14 @@
+<?php
+  session_start();
+
+  // Check if the user is logged in
+  if (!isset($_SESSION['username'])) {
+    // Redirect to the login page or display an error message
+    header('Location: login.php');
+    exit();
+  }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,7 +23,7 @@
 <body>
   <div class="container">
     <h1>Create Post</h1>
-    <form action="http://localhost/noticeboard/admin/process_post.php" method="POST">
+    <form action="process_post.php" method="POST" enctype="multipart/form-data">
       <input type="hidden" name="author" value="1">
       <div class="mb-3">
         <label for="title" class="form-label">Title</label>
@@ -31,6 +42,10 @@
           <option value="general">General</option>
           <!-- Add more options as needed -->
         </select>
+      </div>
+      <div class="mb-3">
+            <label for="cover_photo" class="form-label">Cover Photo</label>
+            <input type="file" class="form-control" id="cover_photo" name="cover_photo" required accept="image/*">
       </div>
       <button type="submit" class="btn btn-primary">Create</button>
     </form>
