@@ -79,16 +79,17 @@ if ($resultPosts->num_rows > 0) {
       </div>
     </div>
 
-    <div class="row mt-4">
-      <div class="col">
-        <h3>Manage Posts</h3>
+    <div>
+      <h3>Manage Posts</h3>
+      <div>
+        
         <!-- Additional content related to managing posts -->
           <?php
           // Database connection and other necessary code here
           
 
           // Set pagination variables
-          $perPage = 10; // Number of posts per page
+          $perPage = 6; // Number of posts per page
           $page = isset($_GET['page']) ? $_GET['page'] : 1; // Current page number
 
           // Retrieve search query
@@ -107,7 +108,7 @@ if ($resultPosts->num_rows > 0) {
           $offset = ($page - 1) * $perPage;
 
           // Retrieve posts based on search query, category, and pagination
-          $sqlPosts = "SELECT * FROM posts WHERE category LIKE '%$search%' ORDER BY created_at DESC LIMIT $offset, $perPage";
+          $sqlPosts = "SELECT * FROM posts WHERE category LIKE '%$search%' ORDER BY date DESC LIMIT $offset, $perPage";
           $resultPosts = $conn->query($sqlPosts);
 
           // Check if there are posts
@@ -115,34 +116,44 @@ if ($resultPosts->num_rows > 0) {
               while ($rowPosts = $resultPosts->fetch_assoc()) {
                   $postId = $rowPosts['id'];
                   $postTitle = $rowPosts['title'];
-                  $postImage = $rowPosts['image'];
+                  $postImage = $rowPosts['cover_photo'];
                   $postContent = $rowPosts['content'];
+                  $filePath = '../images/';
 
                   // Display each post
-                  echo '<div class="post">
-                          <img src="' . $postImage . '" alt="Post Thumbnail">
+
+                  echo '<div class="d-flex">
+                        <div class="flex-shrink-0">
+                          <img src="'. $filePath . $postImage .'" alt="Post Thumbnail" class="img-thumbnail" width="100px">
+                        </div>
+                        <div class="flex-grow-1 ms-3">
                           <h4>' . $postTitle . '</h4>
                           <p>' . substr($postContent, 0, 100) . '...</p>
                           <a href="edit_post.php?id=' . $postId . '">Edit</a>
                           <a href="delete_post.php?id=' . $postId . '">Delete</a>
-                        </div>';
+                        </div>
+                      </div>';
+
               }
           } else {
               echo 'No posts found.';
           }
 
           // Generate pagination links
-          echo '<div class="pagination">';
+          echo '<nav>
+                  <ul class="pagination">';
           for ($i = 1; $i <= $totalPages; $i++) {
-              echo '<a href="manage_posts.php?page=' . $i . '&search=' . $search . '">' . $i . '</a>';
+              echo '<li class="page-item"> <a class="page-link" href="dashboard.php?page=' . $i . '&search=' . $search . '">' . $i . '</a></li>';
           }
-          echo '</div>';
+          echo '
+                  </ul>
+                </nav>';
 
-          // Close database connection and other necessary code here
+          // Close database connection
           $conn->close();
           ?>
 
-      </div>
+        </div>
     </div>
 
     <!-- end container -->

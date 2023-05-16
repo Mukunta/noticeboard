@@ -1,0 +1,2 @@
+RewriteEngine On
+RewriteRule ^manage_posts/([0-9]+)/?$ manage_posts.php?page=$1 [L]
