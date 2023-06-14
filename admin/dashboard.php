@@ -1,4 +1,15 @@
 <?php
+session_start();
+
+  // Check if the user is logged in
+  if (!isset($_SESSION['username'])) {
+    // Redirect to the login page or display an error message
+    header('Location: login.php');
+    exit();
+  }
+?>
+
+<?php
 // Database connection
 $servername = "localhost";
 $username = "root";
@@ -42,28 +53,67 @@ if ($resultPosts->num_rows > 0) {
   <title>Blog Dashboard</title>
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+  <!-- Custom C -->
+  <link rel="stylesheet" href="../assets/style.css">
 </head>
 
 <body>
+  <!-- Site Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-3">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#"><h2> Notice Board </h2></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+    
+        <div class=" collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav ms-auto ">
+            <li class="nav-item">
+              <a class="nav-link mx-2 active" aria-current="page" href="../posts/get_posts.php">View Posts</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link mx-2" href="#manageposts">Manage Post</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link mx-2" href="manage_users.php">Manage Users</a>
+            </li>
+            <!-- <li class="nav-item dropdown">
+              <a class="nav-link mx-2 dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Company
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <li><a class="dropdown-item" href="#">Blog</a></li>
+                <li><a class="dropdown-item" href="#">About Us</a></li>
+                <li><a class="dropdown-item" href="#">Contact us</a></li>
+              </ul>
+            </li> -->
+          </ul>
+          <ul class="navbar-nav ms-auto d-none d-lg-inline-flex">
+            <li class="nav-item mx-2">
+              <a class="nav-link text-light h5" href="" target="blank"><i class="fab fa-google-plus-square"></i></a>
+            </li>
+            <li class="nav-item mx-2">
+              <a class="nav-link text-light h5" href="" target="blank"><i class="fab fa-twitter"></i></a>
+            </li>
+            <li class="nav-item mx-2">
+              <a class="nav-link text-light h5" href="" target="blank"><i class="fab fa-facebook-square"></i></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
   <div class="container">
-    <h1>Welcome to the Blog Dashboard</h1>
+    <h1 class="h1 mt-4">Welcome to the Blog Dashboard</h1>
 
-    <!-- Navigation Menu -->
-    <ul class="nav">
-      <li class="nav-item"><a class="nav-link" href="manage_posts.php">Manage Posts</a></li>
-      <li class="nav-item"><a class="nav-link" href="manage_users.php">Manage Users</a></li>
-      <li class="nav-item"><a class="nav-link" href="statistics.php">Statistics</a></li>
-      <li class="nav-item"><a class="nav-link" href="index.php">Go to Site</a></li>
-      <li class="nav-item"><a class="nav-link" href="logout.php">Logout</a></li>
-    </ul>
-
+    <!-- Simple Summaries -->
     <div class="row mt-4">
       <div class="col">
         <div class="card">
           <div class="card-body">
-            <h5 class="card-title">Statistics</h5>
-            <p class="card-text">Number of Authors: <?php echo $numAuthors; ?></p>
-            <p class="card-text">Number of Posts: <?php echo $numPosts; ?></p>
+            <h3 class="card-title">Number of Posts</h3>
+            <h1 class="card-text"> <?php echo $numPosts; ?> </h1>
+            <p class="card-lead"><a href="create_post.php">Create A New Announcement</a></p>
             <!-- Additional statistics or graphs can be displayed here -->
           </div>
         </div>
@@ -71,8 +121,19 @@ if ($resultPosts->num_rows > 0) {
       <div class="col">
         <div class="card">
           <div class="card-body">
-            <h5 class="card-title">Manage Users</h5>
-            <p class="card-text">Click here to manage users</p>
+            <h3 class="card-title">Number of Authors:</h3>
+            <h1 class="card-text"> <?php echo $numAuthors; ?></h1>
+            <p class="card-lead">Click here to manage users</p>
+            <!-- Additional content related to managing users -->
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card">
+          <div class="card-body">
+          <h3 class="card-title">Important Announcements </h3>
+            <h1 class="card-text"> <?php echo $numPosts; ?> </h1>
+            <p class="card-lead">Manage Important Announcements </p>
             <!-- Additional content related to managing users -->
           </div>
         </div>
@@ -80,8 +141,8 @@ if ($resultPosts->num_rows > 0) {
     </div>
 
     <div>
-      <h3>Manage Posts</h3>
-      <div>
+      <h3 class="h2 mt-4" id="manageposts">Manage Posts</h3>
+      <div class="container">
         
         <!-- Additional content related to managing posts -->
           <?php
@@ -122,16 +183,23 @@ if ($resultPosts->num_rows > 0) {
 
                   // Display each post
 
-                  echo '<div class="d-flex">
-                        <div class="flex-shrink-0">
-                          <img src="'. $filePath . $postImage .'" alt="Post Thumbnail" class="img-thumbnail" width="100px">
-                        </div>
-                        <div class="flex-grow-1 ms-3">
-                          <h4>' . $postTitle . '</h4>
-                          <p>' . substr($postContent, 0, 100) . '...</p>
-                          <a href="edit_post.php?id=' . $postId . '">Edit</a>
-                          <a href="delete_post.php?id=' . $postId . '">Delete</a>
-                        </div>
+                  echo '<div class="row mt-4 border rounded-2 p-3 shadow">
+                          <div class="col">
+                            <img src="'. $filePath . $postImage .'" alt="Post Thumbnail" class="img-thumbnail" width="150px">
+                          </div>
+                          <div class="col">
+                            <div class="flex-grow-1 ms-3">
+                              <h4>' . $postTitle . '</h4>
+                              <p>' . substr($postContent, 0, 100) . '...</p>
+      
+                            </div>
+                          </div>
+                          <div class="col">
+                            <div class="row">
+                                <div class="col m-1"><a class="btn btn-primary" href="edit_post.php?id=' . $postId . '">Edit Post</a></div>
+                                <div class="col m-1"><a class="btn btn-danger" href="delete_post.php?id=' . $postId . '">Delete Post</a></div>
+                            </div>
+                          </div>
                       </div>';
 
               }
@@ -140,8 +208,8 @@ if ($resultPosts->num_rows > 0) {
           }
 
           // Generate pagination links
-          echo '<nav>
-                  <ul class="pagination">';
+          echo '<nav class="mt-4">
+                  <ul class="pagination pagination-lg">';
           for ($i = 1; $i <= $totalPages; $i++) {
               echo '<li class="page-item"> <a class="page-link" href="dashboard.php?page=' . $i . '&search=' . $search . '">' . $i . '</a></li>';
           }
@@ -158,6 +226,13 @@ if ($resultPosts->num_rows > 0) {
 
     <!-- end container -->
   </div>
+
+  <!-- Footer -->
+  <footer class="footer mt-4">
+        <div class="container">
+            <span>&copy; 2023 Your Company. All rights reserved.</span>
+        </div>
+  </footer>
   
 
   <!-- Bootstrap JS -->
