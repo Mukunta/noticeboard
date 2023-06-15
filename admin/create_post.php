@@ -35,7 +35,7 @@
             <a class="nav-link mx-2 active" aria-current="page" href="../posts/get_posts.php">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link mx-2" href="#manageposts">Manage Posts</a>
+            <a class="nav-link mx-2" href="dashboard.php#manageposts">Manage Posts</a>
           </li>
           <li class="nav-item">
             <a class="nav-link mx-2" href="manage_users.php">Manage Users</a>

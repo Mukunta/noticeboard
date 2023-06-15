@@ -41,18 +41,23 @@ if (isset($_POST['submit'])) {
     $newTitle = $_POST['title'];
     $newContent = $_POST['content'];
 
-    // Update the post in the database
-    $sql = "UPDATE posts SET title = '$newTitle', content = '$newContent' WHERE id = $postId";
+    // Prepare the update statement
+    $stmt = $conn->prepare("UPDATE posts SET title = ?, content = ? WHERE id = ?");
+    $stmt->bind_param("ssi", $newTitle, $newContent, $postId);
 
-    if ($conn->query($sql) === TRUE) {
+    if ($stmt->execute()) {
         // Update successful, redirect to manage_posts.php
         header("Location: dashboard.php");
         exit();
     } else {
         // Error occurred during update
-        echo "Error updating post: " . $conn->error;
+        echo "Error updating post: " . $stmt->error;
     }
+
+    // Close the statement
+    $stmt->close();
 }
+
 
 // Close database connection
 $conn->close();

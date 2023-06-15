@@ -7,6 +7,8 @@
   <title>My Blog</title>
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
   <link rel="stylesheet" href="../assets/style.css">
 </head>
 
@@ -22,13 +24,13 @@
         <div class=" collapse navbar-collapse" id="navbarNavDropdown">
           <ul class="navbar-nav ms-auto ">
             <li class="nav-item">
-              <a class="nav-link mx-2 active" aria-current="page" href="../posts/get_posts.php">Home</a>
+              <a class="nav-link mx-2 active" aria-current="page" href="get_posts.php">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link mx-2" href="#manageposts"><!--Put Link Te--></a>
+              <a class="nav-link mx-2" href="#manageposts"><!--Put Link Filter Link--></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link mx-2" href="manage_users.php">Manage Users</a>
+              <a class="nav-link mx-2" href="manage_users.php"><!--Put Link Filter Link--></a>
             </li>
             <!-- <li class="nav-item dropdown">
               <a class="nav-link mx-2 dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -49,7 +51,7 @@
               <a class="nav-link text-light h5" href="" target="blank"><i class="fab fa-twitter"></i></a>
             </li>
             <li class="nav-item mx-2">
-              <a class="nav-link text-light h5" href="" target="blank"><i class="fab fa-facebook-square"></i></a>
+              <a class="nav-link text-light h5" href="../admin/login.php" target="blank"><span class="material-icons md-48">login</span></a>
             </li>
           </ul>
         </div>
@@ -90,7 +92,8 @@
               <div class="card-body">
                 <img src="<?php echo $filePath . $row['cover_photo']; ?>" alt="Post Thumbnail" class="post-image">
                 <h3 class="card-title"><?= $row['title'] ?></h3>
-                <p class="card-text"><?= $row['content'] ?><a class="text-muted" href="view_post.php">  [Read More]</a></p>
+
+                <p class="card-text"><?= substr($row['content'], 0, 100); ?> <a href="view_posts.php?id=<?= $row['id'] ?>">...[Read More]</a></p>
                 <p class="card-text"><small class="text-muted">Category: <?= $row['category'] ?></small></p>
                 <p class="card-text"><small class="text-muted">Posted on: <?= $row['date'] ?></small></p>
               </div>
@@ -123,7 +126,7 @@
             <div class="card mb-4">
               <div class="card-body">
                 <h3 class="card-title"><?= $row['title'] ?></h3>
-                <p class="card-text"><?= substr($row['content'], 0, 100); ?> <a href="view_post.php">...[Read More]</a></p>
+                <p class="card-text"><?= substr($row['content'], 0, 100); ?> <a href="view_posts.php?id=<?= $row['id'] ?>">...[Read More]</a></p>
                 <p class="card-text"><small class="text-muted">Category: <?= $row['category'] ?></small></p>
                 <p class="card-text"><small class="text-muted">Posted on: <?= $row['date'] ?></small></p>
                 </div>
