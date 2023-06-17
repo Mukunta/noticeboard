@@ -50,8 +50,8 @@ $conn->close();
 </head>
 
 <body>
-    <!-- navbar start -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-3">
+    <!-- Site Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-3">
       <div class="container-fluid">
         <a class="navbar-brand" href="#"><h2> Notice Board </h2></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -61,13 +61,13 @@ $conn->close();
         <div class=" collapse navbar-collapse" id="navbarNavDropdown">
           <ul class="navbar-nav ms-auto ">
             <li class="nav-item">
-              <a class="nav-link mx-2 active" aria-current="page" href="get_posts.php">Home</a>
+              <a class="nav-link mx-2 " aria-current="page" href="../posts/get_posts.php">View Posts</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link mx-2" href="#manageposts"><!--Put Link Filter Link--></a>
+              <a class="nav-link mx-2" href="dashboard.php#manageposts">Manage Post</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link mx-2 active" href="manage_users.php"><!--Put Link Filter Link--></a>
+              <a class="nav-link mx-2 active" href="manage_users.php">Manage Users</a>
             </li>
             <!-- <li class="nav-item dropdown">
               <a class="nav-link mx-2 dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -88,7 +88,7 @@ $conn->close();
               <a class="nav-link text-light h5" href="" target="blank"><i class="fab fa-twitter"></i></a>
             </li>
             <li class="nav-item mx-2">
-              <a class="nav-link text-light h5" href="../admin/login.php" target="blank"><span class="material-icons md-48">login</span></a>
+              <a class="nav-link text-light h5" href="" target="blank"><i class="fab fa-facebook-square"></i></a>
             </li>
           </ul>
         </div>
@@ -122,12 +122,12 @@ $conn->close();
 
     </div>
 
+    <!-- Footer -->
     <footer class="footer mt-4">
-        <div class="container">
-            <span>&copy; 2023 Your Company. All rights reserved.</span>
-        </div>
+          <div class="container">
+              <span>&copy; 2023 Your Company. All rights reserved.</span>
+          </div>
     </footer>
-
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>

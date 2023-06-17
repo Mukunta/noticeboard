@@ -40,16 +40,6 @@
           <li class="nav-item">
             <a class="nav-link mx-2" href="manage_users.php">Manage Users</a>
           </li>
-          <!-- <li class="nav-item dropdown">
-            <a class="nav-link mx-2 dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Company
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <li><a class="dropdown-item" href="#">Blog</a></li>
-              <li><a class="dropdown-item" href="#">About Us</a></li>
-              <li><a class="dropdown-item" href="#">Contact us</a></li>
-            </ul>
-          </li> -->
         </ul>
         <ul class="navbar-nav ms-auto d-none d-lg-inline-flex">
           <li class="nav-item mx-2">
@@ -69,7 +59,7 @@
 
   <div class="container">
     <h1>Create Post</h1>
-    <form action="process_post.php" method="POST" enctype="multipart/form-data">
+    <form action="process_post2.php" method="POST" enctype="multipart/form-data">
       <input type="hidden" name="author" value="1">
       <div class="mb-3">
         <label for="title" class="form-label">Title</label>
@@ -90,8 +80,12 @@
         </select>
       </div>
       <div class="mb-3">
-            <label for="cover_photo" class="form-label">Cover Photo</label>
-            <input type="file" class="form-control" id="cover_photo" name="cover_photo" required accept="image/*">
+        <label for="cover_photo" class="form-label">Cover Photo</label>
+        <input type="file" class="form-control" id="cover_photo" name="cover_photo" required accept="image/*">
+      </div>
+      <div class="mb-3">
+        <label for="is_important" class="form-label">Mark as Important</label>
+        <input type="checkbox" class="form-check-input" id="is_important" name="is_important">
       </div>
       <button type="submit" class="btn btn-primary">Create</button>
     </form>
@@ -106,7 +100,6 @@
 
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
-  </body>
 </body>
 
 </html>

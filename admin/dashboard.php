@@ -41,6 +41,18 @@ if ($resultPosts->num_rows > 0) {
     $numPosts = $rowPosts["numPosts"];
 }
 
+// Retrieve number of important posts
+// Get the count of important posts from the database
+$sql = "SELECT COUNT(*) AS count FROM posts WHERE important = 1";
+$result = $conn->query($sql);
+
+$importantPostCount = 0;
+
+if ($result && $result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $importantPostCount = $row['count'];
+}
+
 // $conn->close();
 ?>
 
@@ -104,7 +116,7 @@ if ($resultPosts->num_rows > 0) {
     </nav>
 
   <div class="container">
-    <h1 class="h1 mt-4">Welcome to the Blog Dashboard</h1>
+    <h1 class="h1 mt-4">Welcome to the Dashboard</h1>
 
     <!-- Simple Summaries -->
     <div class="row mt-4">
@@ -124,6 +136,7 @@ if ($resultPosts->num_rows > 0) {
             <h3 class="card-title">Number of Authors:</h3>
             <h1 class="card-text"> <?php echo $numAuthors; ?></h1>
             <p class="card-lead">Click here to manage users</p>
+            <p class="card-lead"><a href="manage_users.php">Manage Authors</a></p>
             <!-- Additional content related to managing users -->
           </div>
         </div>
@@ -132,7 +145,7 @@ if ($resultPosts->num_rows > 0) {
         <div class="card">
           <div class="card-body">
           <h3 class="card-title">Important Announcements </h3>
-            <h1 class="card-text"> <?php echo $numPosts; ?> </h1>
+            <h1 class="card-text"> <?php echo $importantPostCount; ?> </h1>
             <p class="card-lead">Manage Important Announcements </p>
             <!-- Additional content related to managing users -->
           </div>
