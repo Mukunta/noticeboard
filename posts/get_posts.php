@@ -123,13 +123,18 @@
           while ($row = $remainingResult->fetch_assoc()) {
             // Display the remaining posts
             ?>
-            <div class="card mb-4">
-              <div class="card-body">
-                <h3 class="card-title"><?= $row['title'] ?></h3>
-                <p class="card-text"><?= substr($row['content'], 0, 100); ?> <a href="view_posts.php?id=<?= $row['id'] ?>">...[Read More]</a></p>
-                <p class="card-text"><small class="text-muted">Category: <?= $row['category'] ?></small></p>
-                <p class="card-text"><small class="text-muted">Posted on: <?= $row['date'] ?></small></p>
+            <div class="container m-4">
+              <div class="row ">
+                <div class="col">
+                  <img src="<?php echo $filePath . $row['cover_photo']; ?>" alt="Post Thumbnail" class="img-thumbnail">
                 </div>
+                <div class="col-9">
+                  <h3 class="card-title"><?= $row['title'] ?></h3>
+                  <p class="card-text"><?= substr($row['content'], 0, 100); ?> <a href="view_posts.php?id=<?= $row['id'] ?>">...[Read More]</a></p>
+                  <p class="card-text"><small class="text-muted">Category: <?= $row['category'] ?></small></p>
+                  <p class="card-text"><small class="text-muted">Posted on: <?= $row['date'] ?></small></p>
+                </div>
+              </div>
             </div>
           <?php
           }
